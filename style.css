@@ -783,7 +783,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .contactItem { padding: 14px; background: rgba(154,190,131,0.1); border-radius: var(--radius-sm); word-break: break-all; min-width: 0; }
-.contactLabel { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 4px; }
+.contactLabel { text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 4px; }
 .link { color: var(--deep); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 .link:hover { color: var(--cocoa); }
 

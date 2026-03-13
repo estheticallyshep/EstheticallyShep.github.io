@@ -62,7 +62,9 @@ h2 { font-size: clamp(1.6rem, 4vw, 2.6rem); }
 h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 600; }
 
 p { line-height: 1.7; }
-.muted { color: #6b6b5e; font-size: 0.80rem; }
+.muted { color: #6b6b5e;}
+
+.email{ color: #6b6b5e; font-size: 0.50rem;}
 .kicker {
   font-family: var(--font-body);
   font-size: 0.72rem;

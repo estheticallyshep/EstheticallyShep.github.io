@@ -320,7 +320,7 @@
       total += price;
       items.push({ name, price });
     });
-    const deposit = total / 2;
+    const deposit = 10;
 
     const modal = $("#depositModal");
     if (!modal) return;
@@ -562,7 +562,7 @@
     if (!root) return;
 
     const note = `<p class="pricingNote">
-      Select the services you want below, then send your 50% deposit using one of the payment options.
+      Select the services you want below, then send your $10 deposit using one of the payment options.
     </p>`;
 
     // Build tables

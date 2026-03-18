@@ -70,12 +70,12 @@
   const PAYMENT_METHODS = [
     {
       label:  "Venmo",             // Platform display name
-      handle: "@estheticallyshep", // Venmo username shown to customers
-      link:   null,                // No direct Venmo deep-link; renders as plain text
+      handle: "Click me or look me up @estheticallyshep", // Venmo username shown to customers
+      link:   "https://venmo.com/u/estheticallyshep",                // Link to venmo
     },
     {
       label:  "Zelle",                                   // Platform display name
-      handle: "shepherdfields2002@gmail.com",            // Email associated with this Zelle account
+      handle: "Click me",            // Email associated with this Zelle account
       // ✏️ TO MODIFY: Generate a new Zelle QR enrollment link and paste it here.
       link:   "https://enroll.zellepay.com/qr-codes?data=ewogICJ0b2tlbiIgOiAic2hlcGhlcmRmaWVsZHMyMDAyQGdtYWlsLmNvbSIsCiAgIm5hbWUiIDogIlNoZXBoZXJkIgp9",
     },

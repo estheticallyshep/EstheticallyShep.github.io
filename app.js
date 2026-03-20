@@ -896,7 +896,7 @@
 
         <!-- ✏️ TO MODIFY: Update the deposit instructions text below. -->
         <p class="modalNote">
-          Send your ${formatMoney(DEPOSIT_AMOUNT)} deposit using one of the payment methods below.
+          Send your non-refundable ${formatMoney(DEPOSIT_AMOUNT)} deposit using one of the payment methods below.
           Include your name and selected services in the payment note.
           After payment, continue to the booking calendar to choose your time slot.
         </p>

@@ -534,7 +534,12 @@
     if (!root) return; // Guard: container must exist in HTML
 
     if (!pictures || pictures.length === 0) {
-      root.style.display = "none"; // No pictures — hide the carousel section entirely
+      // Hide the entire gallery section (wrapper + toggle button) if no photos
+      const wrap = $("#photoCarouselWrap");
+      const section = document.getElementById("gallery");
+      if (wrap) wrap.style.display = "none";
+      const toggleBtn = $("#galleryToggleBtn");
+      if (toggleBtn) toggleBtn.style.display = "none";
       return;
     }
 
@@ -567,7 +572,11 @@
       `;
     }).filter(Boolean).join(""); // Remove empty strings from skipped rows
 
-    if (!slides) { root.style.display = "none"; return; } // All rows were invalid — hide carousel
+    if (!slides) {
+      const toggleBtn = $("#galleryToggleBtn");
+      if (toggleBtn) toggleBtn.style.display = "none";
+      return;
+    }
 
     root.innerHTML = `
       <div class="photoCarouselTop">
@@ -637,6 +646,36 @@
         track.scrollBy({ left: diff > 0 ? (w + 16) : -(w + 16), behavior: "smooth" });
       }
     }, { passive: true });
+  }
+
+  // ─── WIRE GALLERY TOGGLE ────────────────────────────────
+  // Wires the "View Gallery" button to show/hide the photo carousel wrapper.
+  // Updates button label, aria-expanded, and rotates the chevron icon.
+  function wireGalleryToggle() {
+    const btn  = $("#galleryToggleBtn");
+    const wrap = $("#photoCarouselWrap");
+    const icon = $("#galleryToggleIcon");
+    if (!btn || !wrap) return;
+
+    btn.addEventListener("click", () => {
+      const isOpen = wrap.style.display !== "none";
+
+      if (isOpen) {
+        // Collapse
+        wrap.style.display = "none";
+        btn.setAttribute("aria-expanded", "false");
+        btn.childNodes[0].textContent = "View Gallery "; // Reset label (text node)
+        if (icon) icon.style.transform = "rotate(0deg)";
+      } else {
+        // Expand
+        wrap.style.display = "block";
+        btn.setAttribute("aria-expanded", "true");
+        btn.childNodes[0].textContent = "Hide Gallery "; // Update label
+        if (icon) icon.style.transform = "rotate(180deg)"; // Flip chevron up
+        // Smooth scroll to the carousel so it's visible after opening
+        wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
   }
 
   // ─── RENDER SERVICES CAROUSEL ───────────────────────────
@@ -966,6 +1005,9 @@
     renderSummaryBar();
     renderDepositModal();
 
+    // Wire the gallery toggle button before data loads so it's ready immediately
+    wireGalleryToggle();
+
     try {
       // Fetch all three sheet tabs simultaneously for fastest load
       const { price, specials, pictures } = await loadSheetsAuto();
@@ -973,7 +1015,7 @@
       const groups = groupByCategory(price); // Organize price rows into category groups
 
       // Render all dynamic content sections with the fetched data
-      renderPhotoCarousel(pictures); // Photo gallery
+      renderPhotoCarousel(pictures); // Photo gallery (hidden until toggle is clicked)
       renderCarousel(groups);        // Service category cards
       renderPricing(groups);         // Interactive price tables with checkboxes
       renderSpecials(specials);      // Combo/deal cards
